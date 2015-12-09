@@ -119,3 +119,36 @@ $entity = $morm->find('\Entity\Foo', $id);
 
 $morm->remove($entity);
 ```
+
+#### \MORM\Entity Method set() && setData()
+
+```
+$qb = new \QB\QB($config);
+$morm = new \MORM\MORM($qb);
+
+$id = 1;
+
+$entity = $morm->find('\Entity\Foo', $id);
+
+$entity->set('title', 'FooBar');
+
+$entity->setData([
+    'title' => 'FooBar',
+    'datetime' => '2015-12-10 14:20:11',
+]);
+```
+
+#### \MORM\Entity Method get() && getData()
+
+```
+$qb = new \QB\QB($config);
+$morm = new \MORM\MORM($qb);
+
+$id = 1;
+
+$entity = $morm->find('\Entity\Foo', $id);
+
+$columnData = $entity->get('title');
+
+$arrayData = $entity->getData();
+```
