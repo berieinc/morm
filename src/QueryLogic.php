@@ -12,7 +12,7 @@ class QueryLogic
     private $qb;
 
     /**
-	 * @param \QB\QB $qb
+     * @param \QB\QB $qb
      *
      * @return
      */
@@ -24,7 +24,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param integer $id
      *
      * @return array
@@ -45,7 +45,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      *
      * @return array
      */
@@ -58,12 +58,12 @@ class QueryLogic
             ->toArray();
 
         $this->flush();
-        
+
         return $result;
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param array $condition
      * @param array $sort
      * @param integer $limit
@@ -103,7 +103,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param array $condition
      * @param array $sort
      * @param integer $offset
@@ -118,7 +118,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param array $dataset
      *
      * @return array
@@ -140,7 +140,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param array $dataset
      *
      * @return array
@@ -164,7 +164,7 @@ class QueryLogic
     }
 
     /**
-	 * @param string $table
+     * @param string $table
      * @param array $dataset
      *
      * @return

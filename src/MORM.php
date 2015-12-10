@@ -15,7 +15,7 @@ class MORM
     private $ql;
 
     /**
-	 * @param \QB\QB $qb
+     * @param \QB\QB $qb
      *
      * @return
      */
@@ -28,7 +28,7 @@ class MORM
     }
 
     /**
-	 * @param string $entity
+     * @param string $entity
      * @param integer $id
      *
      * @return \MORM\Entity
@@ -42,12 +42,13 @@ class MORM
             ->find($table, $id);
 
         $entity->setData($result, $this->getQL());
+        $entity->setType($entity, $this->getQL());
 
         return $entity;
     }
 
     /**
-	 * @param string $entity
+     * @param string $entity
      *
      * @return array
      */
@@ -62,8 +63,12 @@ class MORM
 
         if(!empty($dataset)) {
             foreach ($dataset as $value) {
-                $cEntity = clone $entity;
-                $result[] = $cEntity->setData($value, $this->getQL());
+                $subentity = clone $entity;
+
+                $subentity->setData($value, $this->getQL());
+                $subentity->setType($subentity, $this->getQL());
+
+                $result[] = $subentity;
             }
         }
 
@@ -71,7 +76,7 @@ class MORM
     }
 
     /**
-	 * @param string $entity
+     * @param string $entity
      * @param array $condition
      * @param array $sort
      * @param integer $offset
@@ -87,12 +92,13 @@ class MORM
             ->findOneBy($table, $condition, $sort, $offset);
 
         $entity->setData($result, $this->getQL());
+        $entity->setType($entity, $this->getQL());
 
         return $entity;
     }
 
     /**
-	 * @param string $entity
+     * @param string $entity
      * @param array $condition
      * @param array $sort
      * @param integer $limit
@@ -111,8 +117,12 @@ class MORM
 
         if(!empty($dataset)) {
             foreach ($dataset as $value) {
-                $cEntity = clone $entity;
-                $result[] = $cEntity->setData($value, $this->getQL());
+                $subentity = clone $entity;
+
+                $subentity->setData($value, $this->getQL());
+                $subentity->setType($subentity, $this->getQL());
+
+                $result[] = $subentity;
             }
         }
 
@@ -120,29 +130,48 @@ class MORM
     }
 
     /**
-	 * @param \MORM\Entity $entity
+     * @param \MORM\Entity $entity
      *
      * @return \MORM\Entity
      */
     public function save(\MORM\Entity $entity)
     {
         $result = [];
+
+        /** @ \MORM\Entity */
         $data   = $entity->getData();
+
+        /** @ \MORM\Entity */
         $table  = $entity->getTable();
 
-        if(empty($entity->get('id'))) {
-            $result = $this->getQL()->insertOne($table, $data);
+        /** @ \MORM\DataType */
+        $array  = $entity->getType($entity);
 
+        if(empty($entity->get('id'))) {
+            /** @ \MORM\QueryLogic */
+            $result = $this->getQL()->insertOne($table, $array);
+
+            /** @ \MORM\Entity */
             $entity->setData($result, $this->getQL());
+
+            /** @ \MORM\DataType */
+            $entity->setType($entity, $this->getQL());
         } else {
-            $result = $this->getQL()->updateOne($table, $data);
+            /** @ \MORM\QueryLogic */
+            $result = $this->getQL()->updateOne($table, $array);
+
+            /** @ \MORM\Entity */
+            $entity->setData($result, $this->getQL());
+
+            /** @ \MORM\DataType */
+            $entity->setType($entity, $this->getQL());
         }
 
         return $entity;
     }
 
     /**
-	 * @param \MORM\Entity $entity
+     * @param \MORM\Entity $entity
      *
      * @return
      */
@@ -151,16 +180,17 @@ class MORM
         $result = [];
         $data   = $entity->getData();
         $table  = $entity->getTable();
+        $array  = $entity->getType($entity);
 
-        $result = $this->getQL()->deleteOne($table, $data);
+        $result = $this->getQL()->deleteOne($table, $array);
 
-        $entity->__destruct();
+        $entity = null;
 
         return;
     }
 
     /**
-	 * @param \QB\QB $qb
+     * @param \QB\QB $qb
      *
      * @return \QB\QB
      */
@@ -178,7 +208,7 @@ class MORM
     }
 
     /**
-	 * @param \QB\QB $qb
+     * @param \QB\QB $qb
      *
      * @return \MORM\QueryLogic
      */

@@ -2,15 +2,25 @@
 
 namespace MORM;
 
+use MORM\DataType;
+
 /**
  * @package MORM
  * @subpackage Entity
  * @author Eugen Melnychenko
  */
 class Entity
+    extends \MORM\DataType
 {
+    public function __construct()
+    {
+        $entity = $this->iniType($this);
+
+        return;
+    }
+
     /**
-	 * @param string $pref
+     * @param string $pref
      *
      * @return sting
      */
@@ -20,7 +30,7 @@ class Entity
     }
 
     /**
-	 * @param string $pref
+     * @param string $pref
      * @param string $value
      * @param \MORM\QueryLogic $ql
      *
