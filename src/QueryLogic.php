@@ -39,6 +39,8 @@ class QueryLogic
             ->query()
             ->toArray();
 
+        $this->flush();
+
         return !empty($result) ? $result[0] : [];
     }
 
@@ -49,11 +51,15 @@ class QueryLogic
      */
     public function findAll($table)
     {
-        return $this->getQB()
+        $result = $this->getQB()
             ->select()
             ->from($table)
             ->query()
             ->toArray();
+
+        $this->flush();
+        
+        return $result;
     }
 
     /**
@@ -90,6 +96,8 @@ class QueryLogic
             ->offset($offset)
             ->query()
             ->toArray();
+
+        $this->flush();
 
         return $result;
     }
