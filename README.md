@@ -33,14 +33,16 @@ $morm = new \MORM\MORM($qb);
 
 namespace Entity;
 
+use MORM\DataType;
+
 class Foo // <-- custom model name
     extends \MORM\Entity // <-- *require* parent class
 {
     const TABLE = 'data_table'; // <-- *require* database table name
 
-    protected $id; // <-- *require* database table column name
-    protected $title; // <-- *require* database table column name
-    protected $datetime; // <-- *require* database table column name
+    protected $id       = DataType::INTEGER; // <-- *require* database table column name
+    protected $title;   = DataType::STRING; // <-- *require* database table column name
+    protected $datetime = DataType::DATETIME; // <-- *require* database table column name
 }
 
 ```
