@@ -2,7 +2,7 @@
     "name": "melny/morm",
     "description": "PHP MYSQL ORM",
     "autoload": {
-        "psr-4": { "MORM\\": [""] }
+        "psr-4": { "MORM\\": ["src/"] }
     },
     "require": {
         "php": ">=5.3.0",
