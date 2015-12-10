@@ -1,5 +1,5 @@
-# qb
-PHP MYSQL QUERY BUILDER
+# MORM
+PHP MYSQL ORM
 
 composer: php composer.phar require melny/morm
 
